@@ -1,7 +1,7 @@
 const React = require("react");
 const Default = require("./layouts/default");
 
-function Show({ bread}) {
+function Show({ bread }) {
   console.log(bread.name);
   return (
     <Default>
@@ -13,6 +13,7 @@ function Show({ bread}) {
         have gluten.
       </p>
       <img src={bread.image} alt={bread.name} />
+      <p>{bread.getBakedBy()}</p>
       <a href={`/breads/${bread.id}/edit`}>
         <button>Edit</button>
       </a>
