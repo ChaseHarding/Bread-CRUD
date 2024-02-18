@@ -1,11 +1,27 @@
 // DEPENDICIES
+require('dotenv').config()
 const express = require('express')
 const methodOverride = require('method-override')
+const mongoose = require('mongoose')
+
+mongoose.connect(process.env.Mongo_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+
+const db = mongoose.connection
+db.on('error', console.error.bind(console, 'MongoDB connection error:'))
+db.once('open', () => {
+    console.log('Connected to MongoDB')
+})
+
 
 // CONFIGURATION
-require('dotenv').config()
+
 const PORT = process.env.PORT
 const app = express()
+
+
 
 // MIDDLEWARE
 app.set('views', __dirname + '/views')
