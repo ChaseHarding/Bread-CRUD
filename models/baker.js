@@ -5,7 +5,9 @@ const Bread = require('./bread.js')
 
 // schema
 const bakerSchema = new Schema({
-    name: {type: String, required: true, enum: ['Rachel', 'Monica', 'Joey', 'Chandler', 'Ross', 'Phoebe']},
+    name: {type: String, required: true,
+     enum: ['Rachel', 'Monica', 'Joey', 'Chandler', 'Ross', 'Phoebe']
+    },
     startDate: {type: Date, required: true},
     bio: String
 
@@ -16,6 +18,15 @@ bakerSchema.virtual ('breads', {
     ref: 'Bread',
     localField: "_id",
     foreignField: 'baker'
+})
+
+// HOOKS
+bakerSchema.post('findOneAndDelete', function() {
+    console.log(this);
+    const bakerId = this._conditions._id;
+    Bread.deleteMany({ baker: bakerId}).then((deleteStatus) => {
+        console.log(deleteStatus);
+    })
 })
 
 // model and export

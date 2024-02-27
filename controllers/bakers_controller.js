@@ -3,11 +3,11 @@ const baker = express.Router()
 const Baker = require('../models/baker.js')
 const bakerSeedData = require('../models/baker_seed.js')
 
-
-baker.get('/data/seed', (req, res) => {
-    Baker.insertMany(bakerSeedData)
-    .then(res.redirect('/breads'))
-})
+// REMEMBER THIS MOMENT CHASE
+// baker.get('/data/seed', (req, res) => {
+//     Baker.insertMany(bakerSeedData)
+//     .then(res.redirect('/breads'))
+// })
 
 baker.get('/', (req, res) => {
     Baker.find()
@@ -24,6 +24,12 @@ baker.get('/:id', (req, res) => {
         res.render('bakerShow', {
             baker: foundBaker
         })
+    })
+})
+
+baker.delete('/:id', (req, res) => {
+    Baker.findByIdAndDelete(req.params.id).then((deletedBaker) => {
+    res.status(303).redirect('/breads')
     })
 })
 
