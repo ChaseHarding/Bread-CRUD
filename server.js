@@ -4,18 +4,13 @@ const express = require('express')
 const methodOverride = require('method-override')
 const mongoose = require('mongoose')
 
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+mongoose.connect(process.env.MONGO_URI)
+.then(() => {
+    console.log('connected to mongo: ' + process.env.MONGO_URI);
 })
-
-const db = mongoose.connection
-db.on('error', console.error.bind(console, 'MongoDB connection error:'))
-db.once('open', () => {
-    console.log('Connected to MongoDB')
-})
-
-
+.catch((err) => {
+    console.log('Error connecting to mongo: ' + err);
+});
 // CONFIGURATION
 
 const PORT = process.env.PORT
