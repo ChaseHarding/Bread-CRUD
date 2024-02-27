@@ -4,7 +4,7 @@ const express = require('express')
 const methodOverride = require('method-override')
 const mongoose = require('mongoose')
 
-mongoose.connect(process.env.Mongo_URI, {
+mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
