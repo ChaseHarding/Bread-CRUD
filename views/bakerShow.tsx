@@ -1,4 +1,4 @@
-const React = require('react')
+import React from 'react'
 const Default = require('./layouts/default')
 
 function Show ({baker}) {
@@ -10,7 +10,7 @@ function Show ({baker}) {
           <h3>Breads {baker.name} has baked</h3>
           <ul>
             {
-                baker.breads.map((bread) => {
+                baker.breads.map((bread: { id: React.Key | null | undefined; name: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined }) => {
                     return (
                         <li key={bread.id}>
                         {bread.name}

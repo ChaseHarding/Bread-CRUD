@@ -1,3 +1,5 @@
+import { Key, ReactElement, JSXElementConstructor, ReactNode, ReactPortal } from "react";
+
 const React = require("react");
 const Default = require("./layouts/default");
 
@@ -18,7 +20,7 @@ function Edit({ bread, bakers }) {
         <input type="text" name="image" id="image" defaultValue={bread.image} />
         <label htmlFor="baker">Baker</label>
         <select name="baker" id="baker" defaultValue={bread.baker}>
-          {bakers.map((baker) => {
+          {bakers.map((baker: { id: Key | readonly string[] | null | undefined; name: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; }) => {
             return (
               <option value={baker.id} key={baker.id}>{baker.name}</option>
             )

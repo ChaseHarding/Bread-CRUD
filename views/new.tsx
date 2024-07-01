@@ -1,4 +1,4 @@
-const React = require("react");
+import React from "react";
 const Default = require("./layouts/default");
 
 function New({bakers}) {

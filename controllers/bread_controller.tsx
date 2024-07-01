@@ -5,8 +5,8 @@ const Baker = require("../models/baker.js");
 
 
 // NEW
-breads.get("/new", (req, res) => {
-  Baker.find().then((foundBakers) => {
+breads.get("/new", (_req: any, res: { render: (arg0: string, arg1: { bakers: any; }) => void; }) => {
+  Baker.find().then((foundBakers: any) => {
     res.render("new", {
       bakers: foundBakers,
     });
@@ -14,7 +14,7 @@ breads.get("/new", (req, res) => {
 });
 
 // CREATE
-breads.post("/", (req, res) => {
+breads.post("/", (req: { body: { image: undefined; hasGluten: string; }; }, res: { redirect: (arg0: string) => void; }) => {
   if (!req.body.image) {
     req.body.image = undefined;
   }
@@ -28,9 +28,9 @@ breads.post("/", (req, res) => {
 });
 
 // INDEX
-breads.get("/", (req, res) => {
-  Baker.find().then((foundBakers) => {
-    Bread.find().then((foundBreads) => {
+breads.get("/", (_req: any, res: { render: (arg0: string, arg1: { breads: any; bakers: any; title: string; }) => void; }) => {
+  Baker.find().then((foundBakers: any) => {
+    Bread.find().then((foundBreads: any) => {
       res.render("index", {
         breads: foundBreads,
         bakers: foundBakers,
@@ -41,17 +41,17 @@ breads.get("/", (req, res) => {
 });
 
 // SHOW
-breads.get("/:id", (req, res) => {
+breads.get("/:id", (req: { params: { id: any; }; }, res: { render: (arg0: string, arg1: { bread: any; }) => void; send: (arg0: string) => void; }) => {
   Bread.findById(req.params.id)
     .populate("baker")
-    .then((foundBread) => {
+    .then((foundBread: { getBakedBy: () => any; }) => {
       const bakedBy = foundBread.getBakedBy();
       console.log(bakedBy);
       res.render("show", {
         bread: foundBread,
       });
     })
-    .catch((err) => {
+    .catch(() => {
       res.send("404");
     });
 });

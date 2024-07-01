@@ -1,7 +1,7 @@
-const express = require('express')
-const baker = express.Router()
-const Baker = require('../models/baker.js')
-const bakerSeedData = require('../models/baker_seed.js')
+import express, { Request, Response } from 'express';
+import Baker from '../models/baker';
+
+const baker = express.Router();
 
 // REMEMBER THIS MOMENT CHASE
 // baker.get('/data/seed', (req, res) => {
@@ -9,10 +9,10 @@ const bakerSeedData = require('../models/baker_seed.js')
 //     .then(res.redirect('/breads'))
 // })
 
-baker.get('/', (req, res) => {
+baker.get('/', (req: Request, res: Response) => {
     Baker.find()
     .populate('breads')
-    .then(foundBakers => {
+    .then((foundBakers: any) => {
         res.send(foundBakers)
     })
 })
@@ -20,7 +20,7 @@ baker.get('/', (req, res) => {
 baker.get('/:id', (req, res) => {
     Baker.findById(req.params.id)
     .populate('breads')
-    .then(foundBaker => {
+    .then((foundBaker: any) => {
         res.render('bakerShow', {
             baker: foundBaker
         })
@@ -28,7 +28,7 @@ baker.get('/:id', (req, res) => {
 })
 
 baker.delete('/:id', (req, res) => {
-    Baker.findByIdAndDelete(req.params.id).then((deletedBaker) => {
+    Baker.findByIdAndDelete(req.params.id).then(() => {
     res.status(303).redirect('/breads')
     })
 })
